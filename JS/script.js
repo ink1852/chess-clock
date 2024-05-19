@@ -5,7 +5,7 @@ const player2clock = document.querySelector("#player2 span");
 
 const resetBtn = document.querySelector("#icons i:nth-child(1)");
 const playAndPauseBtn = document.querySelector("#icons i:nth-child(2)");
-const setTimeBtn = document.querySelector("#icons i:nth-child(3)");
+const setTimeBtn = document.querySelector(".fa-pen-to-square");
 
 const stopScreen = document.getElementById("stop-screen");
 

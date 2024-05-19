@@ -1,5 +1,10 @@
 @import "reset.css";
 @import "var.css";
+@import "form.css";
+
+.hidden{
+    display: none;
+}
 
 main{
     width: 100vw;
@@ -72,7 +77,7 @@ main{
     height: 100vh;
     background-color: rgb(0, 0, 0);
     opacity: 1;
-    animation: fadeMotion 0.5s ease-in-out forwards;
+    animation: fadeMotion 1.5s ease-in forwards;
     z-index: 10;
 }
 
