@@ -9,12 +9,12 @@ const setTimeBtn = document.querySelector("#icons i:nth-child(3)");
 
 const stopScreen = document.getElementById("stop-screen");
 
-let min = 1;
-let sec = 0;
+let min = 0;
+let sec = 10;
 let milisec = 100;
 
-let min2 = 1;
-let sec2 = 0;
+let min2 = 0;
+let sec2 = 10;
 let milisec2 = 100;
 
 let timerId1;
