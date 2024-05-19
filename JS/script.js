@@ -1,3 +1,5 @@
+"use strict";
+
 const player1Div = document.getElementById("player1");
 const player2Div = document.getElementById("player2");
 const player1clock = document.querySelector("#player1 span");
@@ -9,12 +11,20 @@ const setTimeBtn = document.querySelector(".fa-pen-to-square");
 
 const stopScreen = document.getElementById("stop-screen");
 
-let min = 0;
-let sec = 10;
+const modalbtn = document.querySelector("#icons button");
+const dialog = document.querySelector("dialog");
+
+const modalform = document.getElementById("modify-time-form");
+const player1Input = document.getElementById("player1-input");
+const player2Input = document.getElementById("player2-input");
+
+
+let min = 1;
+let sec = 0;
 let milisec = 100;
 
-let min2 = 0;
-let sec2 = 10;
+let min2 = 1;
+let sec2 = 0;
 let milisec2 = 100;
 
 let timerId1;
@@ -23,7 +33,7 @@ let timerId2;
 let check_player1 = 0;
 let check_player2 = 0;
 
-function clockText(player, min, sec, milisec) {
+function clockText(player, min, sec) {
     player.innerText = `${min}:${String(sec).padStart(2, "0")}`;
 }
 
@@ -44,7 +54,7 @@ function flowtime() {
             min--;
         }
 
-        clockText(player1clock, min, sec, milisec);
+        clockText(player1clock, min, sec);
         player1Div.classList.add("time-on");
         player2Div.classList.remove("time-on");
     }
@@ -63,7 +73,7 @@ function flowtime() {
             min2--;
         }
 
-        clockText(player2clock, min2, sec2, milisec2);
+        clockText(player2clock, min2, sec2);
         player2Div.classList.add("time-on");
         player1Div.classList.remove("time-on");
     }
@@ -130,10 +140,10 @@ playAndPauseBtn.addEventListener("click", () => {
 
 })
 resetBtn.addEventListener("click", () => {
-    min = 1;
+    min = player1Input.value;
     sec = 0;
     milisec = 100;
-    min2 = 1;
+    min2 = player2Input.value;
     sec2 = 0;
     milisec2 = 100;
     clockText(player1clock, min, sec, milisec);
@@ -143,4 +153,30 @@ resetBtn.addEventListener("click", () => {
     playAndPauseBtn.classList.add("fa-pause");
     playAndPauseBtn.classList.remove("fa-play");
     timerinit();
+})
+
+modalbtn.addEventListener("click",()=>{
+    dialog.showModal();
+})
+
+modalform.addEventListener("submit",(e)=>{
+    e.preventDefault();
+    if (player1Input.value < 1 || player1Input.value === NaN || player2Input.value < 1 || player2Input.value === NaN) {
+
+        player1Input.value = 1;
+        player2Input.value = 1;
+        console.log("wrong");
+
+    }
+    else{
+        min = player1Input.value;
+        min2 = player2Input.value;
+        sec = 0;
+        sec2 = 0;
+        dialog.close();
+        clockText(player1clock, min, sec);
+        clockText(player2clock, min2, sec2);
+        timerinit();
+
+    }
 })

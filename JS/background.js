@@ -1,3 +1,5 @@
+"use strict";
+
 const images = [
     "pexels-1.jpg",
     "pexels-2.jpg",

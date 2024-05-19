@@ -1,0 +1,38 @@
+dialog{
+    position: relative;
+    width: 33vw;
+    height: 40vh;
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(24, 24, 24);
+    padding: 30px;
+    box-sizing: border-box;
+}
+dialog::backdrop{
+    background-color: rgba(0, 0, 0, 0.4);
+}
+dialog form{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+.modify-time-input{
+    width: 50px;
+    height: 20px;
+    background: none;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--on-color);
+    text-align: center;
+    color: white;
+    font-size: 24px;
+
+}
+dialog form button{
+    background-color: var(--on-color);
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(2, 243, 98, 0.4);
+    color: white;
+}

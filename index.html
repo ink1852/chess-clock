@@ -21,11 +21,23 @@
             <label for="open-form">
                 <i class="fa-solid fa-pen-to-square"></i>
             </label>
-            <input id="open-form" type="checkbox" class="hidden"/>
- 
+            <button id="open-form" type="submit" class="hidden"></button>
         </div>
     </main>
-    
+    <dialog>
+        <form id="modify-time-form">
+            <div>
+                <span>player1</span>
+                <input id="player1-input" type="text" maxlength="2" value="1"/>
+            </div>
+            <div>
+                <span>player2</span>
+                <input id="player2-input" type="text" maxlength="2" value="1"/>
+            </div>
+            <button>go</button>
+        </form>
+    </dialog>
+
     <div id="stop-screen"></div>
     <div id="loading-screen"></div>
 
