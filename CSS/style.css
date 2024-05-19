@@ -1,3 +1,64 @@
 @import "reset.css";
 @import "var.css";
 
+main{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.clock-box{
+    width: 40vw;
+    height: 85vh;
+    background-color: var(--default-color);
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 100px;
+    font-weight: bold;
+}
+#icons{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 70vh;
+    z-index: 2;
+}
+#icons i{
+    cursor: pointer;
+    font-size: 64px;
+    color: whitesmoke;
+}
+.bgImgStyle{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    filter: brightness(90%);
+}
+.stop-game{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
+.stopScreen{
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.time-on{
+    background-color: var(--on-color);
+}
+.time-over{
+    background-color: red;
+}

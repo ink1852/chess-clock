@@ -1,3 +1,4 @@
 :root{
-    
+    --default-color: rgba(0,0,0,0.5);
+    --on-color: rgba(154, 201, 162, 0.3);
 }
