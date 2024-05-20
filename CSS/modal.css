@@ -1,7 +1,7 @@
 dialog{
     position: relative;
-    width: 33vw;
-    height: 40vh;
+    width: 500px;
+    height: 300px;
     border: none;
     border-radius: 20px;
     background-color: rgb(24, 24, 24);
@@ -12,7 +12,7 @@ dialog::backdrop{
     background-color: rgba(0, 0, 0, 0.4);
 }
 dialog form{
-    height: 50%;
+    height: 225px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -40,5 +40,5 @@ dialog form button{
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(2, 243, 98, 0.4);
     color: white;
-    height: 20%;
+    height: 30px;
 }
