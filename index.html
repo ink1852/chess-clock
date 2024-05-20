@@ -27,12 +27,18 @@
     <dialog>
         <form id="modify-time-form">
             <div>
-                <span>player1</span>
-                <input id="player1-input" type="text" maxlength="2" value="1"/>
+                <span>minutes per player</span>
+                <div>
+                    <input id="player1-input" type="text" maxlength="2" value="1" autocomplete="off"/>
+                    <input id="player2-input" type="text" maxlength="2" value="1" autocomplete="off"/>
+                </div>
             </div>
             <div>
-                <span>player2</span>
-                <input id="player2-input" type="text" maxlength="2" value="1"/>
+                <span>extra</span>
+                <div>
+                    <input type="text" maxlength="1" value="0" autocomplete="off"/>
+                    <input type="text" maxlength="1" value="0" autocomplete="off"/>
+                </div>
             </div>
             <button>go</button>
         </form>

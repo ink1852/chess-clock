@@ -12,12 +12,17 @@ dialog::backdrop{
     background-color: rgba(0, 0, 0, 0.4);
 }
 dialog form{
-    height: 100%;
+    height: 50%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     color: white;
 }
-.modify-time-input{
+dialog form div{
+    display: flex;
+    justify-content: space-between;
+}
+#modify-time-form div input{
     width: 50px;
     height: 20px;
     background: none;
@@ -26,8 +31,8 @@ dialog form{
     border-bottom: 1px solid var(--on-color);
     text-align: center;
     color: white;
-    font-size: 24px;
-
+    font-size: 20px;
+    margin-left: 15px;
 }
 dialog form button{
     background-color: var(--on-color);
@@ -35,4 +40,5 @@ dialog form button{
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(2, 243, 98, 0.4);
     color: white;
+    height: 20%;
 }
