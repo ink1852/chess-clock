@@ -17,7 +17,11 @@ const dialog = document.querySelector("dialog");
 const modalform = document.getElementById("modify-time-form");
 const player1Input = document.getElementById("player1-input");
 const player2Input = document.getElementById("player2-input");
+const player1ExtraCountInput = document.getElementById("player1-extra-count");
+const player2ExtraCountInput = document.getElementById("player2-extra-count");
 
+let player1ExtraCount = 0;
+let player2ExtraCount = 0;
 
 let min = 1;
 let sec = 0;
@@ -40,13 +44,13 @@ function clockText(player, min, sec) {
 
 function flowtime() {
     if (check_player1 == 1) {
-
         if (milisec > 0) {
             milisec--;
         }
         else if (sec > 0) {
             milisec = 99;
             sec--;
+           
         }
         else if (min > 0) {
             milisec = 99;
@@ -104,11 +108,19 @@ function flowtime() {
 }
 
 player1Div.addEventListener("click", () => {
-    if (check_player2 == 0) {
+    if (check_player2 == 0) { 
         check_player2 = 1;
         timerId1 = setInterval(flowtime, 10);
         clearInterval(timerId2);
         check_player1 = 0;
+        //extra count
+        sec += player1ExtraCount;
+        if(sec > 59){
+            sec = 0;
+            min++;
+        }
+        clockText(player1clock, min, sec);
+        console.log(min,sec);
     }
 })
 player2Div.addEventListener("click", () => {
@@ -117,6 +129,15 @@ player2Div.addEventListener("click", () => {
         timerId2 = setInterval(flowtime, 10);
         clearInterval(timerId1);
         check_player2 = 0;
+        //extra count
+        sec2 += player2ExtraCount;
+        if(sec2 > 59){
+            sec2 = 0;
+            min2++;
+        }
+        clockText(player2clock, min2, sec2);
+
+        console.log(min2,sec2);
     }
 })
 
@@ -126,8 +147,8 @@ function timerinit(){
     clearInterval(timerId1);
     clearInterval(timerId2);
     player1Div.classList.remove("time-on");
-    player2Div.classList.remove("time-on");
     player1Div.classList.remove("time-over");
+    player2Div.classList.remove("time-on");
     player2Div.classList.remove("time-over");
 }
 
@@ -161,7 +182,7 @@ modalbtn.addEventListener("click",()=>{
 
 modalform.addEventListener("submit",(e)=>{
     e.preventDefault();
-    if (player1Input.value < 1 || player1Input.value === NaN || player2Input.value < 1 || player2Input.value === NaN) {
+    if (player1Input.value < 1 || player1Input.value == NaN || player2Input.value < 1 || player2Input.value == NaN) {
 
         player1Input.value = 1;
         player2Input.value = 1;
@@ -169,6 +190,8 @@ modalform.addEventListener("submit",(e)=>{
 
     }
     else{
+        player1ExtraCount = Number(player1ExtraCountInput.value);
+        player2ExtraCount = Number(player2ExtraCountInput.value);
         min = player1Input.value;
         min2 = player2Input.value;
         sec = 0;
