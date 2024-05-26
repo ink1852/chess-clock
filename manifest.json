@@ -14,7 +14,8 @@
         }
     ],
     "display": "standalone",
-    "start_url": "https://basic-chess-clock.netlify.app/",
+    "scope":".",
+    "start_url": "./",
     "background_color": "#FFFFFF",
     "theme_color": "#FFFFFF"
 }
