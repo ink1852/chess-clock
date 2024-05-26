@@ -120,7 +120,7 @@ player1Div.addEventListener("click", () => {
             min++;
         }
         clockText(player1clock, min, sec);
-        console.log(min,sec);
+        //console.log(min,sec);
     }
 })
 player2Div.addEventListener("click", () => {
@@ -137,7 +137,7 @@ player2Div.addEventListener("click", () => {
         }
         clockText(player2clock, min2, sec2);
 
-        console.log(min2,sec2);
+        //console.log(min2,sec2);
     }
 })
 
