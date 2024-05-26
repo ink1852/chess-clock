@@ -1,21 +1,28 @@
 {
-    "short_name": "chess clock",
-    "name": "Basic Chess Clock",
-    "icons":[
-        {
-            "src": "/IMG/icons-192.png",
-            "type":"image/png",
-            "sizes":"192x192"
-        },
-        {
-            "src": "/IMG/icons-512.png",
-            "type":"image/png",
-            "sizes":"512x512"
-        }
-    ],
-    "display": "standalone",
-    "scope":".",
-    "start_url": "./",
-    "background_color": "#FFFFFF",
-    "theme_color": "#FFFFFF"
+  "short_name": "chess clock",
+  "name": "Basic Chess Clock",
+  "icons": [
+    {
+      "src": "/IMG/icons-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/IMG/icons-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "display": "standalone",
+  "scope": ".",
+  "start_url": "./",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
+  "orientation": "any",
+  "id": "Basic-chess-clock",
+  "description": "my_first_PWA",
+  "display_override": [
+    "fullscreen",
+    "window-controls-overlay"
+  ]
 }
