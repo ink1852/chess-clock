@@ -1,19 +1,14 @@
 const CACHE_NAME = 'offline-cache-v1';
 const urlsToCache = [
-  '/',              // 루트 HTML 파일 (index.html)
-  '/index.html',    // 메인 HTML 파일
-  '/CSS/style.css',    // CSS 파일
-  '/JS/script.js',  // JS 파일
-  '/JS/background.js'
+  '/offline.html',    // 오프라인 페이지
 ];
 
-// 설치 이벤트 - 파일 캐시하기
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('필수 파일들 캐시');
-        return cache.addAll(urlsToCache);  // 모든 필수 파일을 캐시합니다
+        return cache.addAll(urlsToCache);  // 필수 파일들을 캐시
       })
   );
 });
@@ -34,7 +29,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// fetch 이벤트 - 네트워크 요청이 실패하면 캐시된 리소스를 반환
+// fetch 이벤트 - 네트워크 요청이 실패하면 오프라인 페이지를 반환
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(event.request)
@@ -43,12 +38,11 @@ self.addEventListener('fetch', (event) => {
         return caches.match(event.request)
           .then((cachedResponse) => {
             if (cachedResponse) {
-              return cachedResponse;  // 캐시된 리소스 반환
+              return cachedResponse;  // 캐시된 리소스를 반환
             }
-            // 캐시에도 없으면 index.html 반환
-            return caches.match('/index.html');
+            // 캐시에도 없으면 오프라인 페이지 반환
+            return caches.match('/offline.html');
           });
       })
   );
 });
-
