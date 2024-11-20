@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" sizes="16x16 32x32 64x64" href="IMG/logo.png">
-    <title>Chess Clock</title>    
-    <script>
-        if (typeof navigator.serviceWorker !== 'undefined') {
-          navigator.serviceWorker.register('sw.js')
-        }
-      </script>
-      
+    <title>Chess Clock</title>
+
 </head>
+
 <body>
     <main>
         <div id="player1" class="clock-box">
@@ -37,22 +34,22 @@
             <div>
                 <span>Minutes per player</span>
                 <div>
-                    <input id="player1-input" type="text" maxlength="2" value="1" autocomplete="off"/>
-                    <input id="player2-input" type="text" maxlength="2" value="1" autocomplete="off"/>
+                    <input id="player1-input" type="text" maxlength="2" value="1" autocomplete="off" />
+                    <input id="player2-input" type="text" maxlength="2" value="1" autocomplete="off" />
                 </div>
             </div>
             <div>
                 <span>Extra</span>
                 <div>
-                    <input id="player1-extra-count" type="text" maxlength="1" value="0" autocomplete="off"/>
-                    <input id="player2-extra-count" type="text" maxlength="1" value="0" autocomplete="off"/>
+                    <input id="player1-extra-count" type="text" maxlength="1" value="0" autocomplete="off" />
+                    <input id="player2-extra-count" type="text" maxlength="1" value="0" autocomplete="off" />
                 </div>
             </div>
             <button>go</button>
         </form>
     </dialog>
 
-    
+
 
     <div id="stop-screen"></div>
     <div id="loading-screen"></div>
@@ -60,6 +57,21 @@
     <script src="https://kit.fontawesome.com/e6fb3651a0.js" crossorigin="anonymous"></script>
     <script src="JS/script.js"></script>
     <script src="JS/background.js"></script>
-    
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')  // 서비스 워커 파일 경로
+                    .then((registration) => {
+                        console.log('Service Worker 등록 성공:', registration);
+                    })
+                    .catch((error) => {
+                        console.log('Service Worker 등록 실패:', error);
+                    });
+            });
+        }
+
+    </script>
+
 </body>
+
 </html>

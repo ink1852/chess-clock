@@ -1,86 +1,54 @@
-const CACHE_NAME = 'cool-cache';
+const CACHE_NAME = 'offline-cache-v1';
+const urlsToCache = [
+  '/',              // 루트 HTML 파일 (index.html)
+  '/index.html',    // 메인 HTML 파일
+  '/CSS/style.css',    // CSS 파일
+  '/JS/script.js',  // JS 파일
+  '/JS/background.js'
+];
 
-// Add whichever assets you want to pre-cache here:
-const PRECACHE_ASSETS = [
-    '/assets/',
-    '/src/'
-]
-
-// Listener for the install event - pre-caches our assets list on service worker install.
-self.addEventListener('install', event => {
-    event.waitUntil((async () => {
-        const cache = await caches.open(CACHE_NAME);
-        cache.addAll(PRECACHE_ASSETS);
-    })());
-});
-self.addEventListener('activate', event => {
-    event.waitUntil(self.clients.claim());
-});
-
-self.addEventListener('fetch', event => {
-    event.respondWith(async () => {
-        const cache = await caches.open(CACHE_NAME);
-
-        // match the request to our cache
-        const cachedResponse = await cache.match(event.request);
-
-        // check if we got a valid response
-        if (cachedResponse !== undefined) {
-            // Cache hit, return the resource
-            return cachedResponse;
-        } else {
-        // Otherwise, go to the network
-            return fetch(event.request)
-        };
-    });
-});
-
-
-
-/* // This is the "Offline page" service worker
-
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
-
-const CACHE = "pwabuilder-page";
-
-// TODO: replace the following with the correct offline fallback page i.e.: const offlineFallbackPage = "offline.html";
-const offlineFallbackPage = "ToDo-replace-this-name.html";
-
-self.addEventListener("message", (event) => {
-  if (event.data && event.data.type === "SKIP_WAITING") {
-    self.skipWaiting();
-  }
-});
-
-self.addEventListener('install', async (event) => {
+// 설치 이벤트 - 파일 캐시하기
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE)
-      .then((cache) => cache.add(offlineFallbackPage))
+    caches.open(CACHE_NAME)
+      .then((cache) => {
+        console.log('필수 파일들 캐시');
+        return cache.addAll(urlsToCache);  // 모든 필수 파일을 캐시합니다
+      })
   );
 });
 
-if (workbox.navigationPreload.isSupported()) {
-  workbox.navigationPreload.enable();
-}
+// 활성화 이벤트 - 불필요한 캐시 삭제
+self.addEventListener('activate', (event) => {
+  const cacheWhitelist = [CACHE_NAME];
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (!cacheWhitelist.includes(cacheName)) {
+            return caches.delete(cacheName);  // 이전 캐시 삭제
+          }
+        })
+      );
+    })
+  );
+});
 
+// fetch 이벤트 - 네트워크 요청이 실패하면 캐시된 리소스를 반환
 self.addEventListener('fetch', (event) => {
-  if (event.request.mode === 'navigate') {
-    event.respondWith((async () => {
-      try {
-        const preloadResp = await event.preloadResponse;
+  event.respondWith(
+    fetch(event.request)
+      .catch(() => {
+        // 네트워크 요청 실패 시 캐시에서 반환
+        return caches.match(event.request)
+          .then((cachedResponse) => {
+            if (cachedResponse) {
+              return cachedResponse;  // 캐시된 리소스 반환
+            }
+            // 캐시에도 없으면 index.html 반환
+            return caches.match('/index.html');
+          });
+      })
+  );
+});
 
-        if (preloadResp) {
-          return preloadResp;
-        }
-
-        const networkResp = await fetch(event.request);
-        return networkResp;
-      } catch (error) {
-
-        const cache = await caches.open(CACHE);
-        const cachedResp = await cache.match(offlineFallbackPage);
-        return cachedResp;
-      }
-    })());
-  }
-}); */
