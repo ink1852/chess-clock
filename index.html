@@ -7,7 +7,12 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="shortcut icon" sizes="16x16 32x32 64x64" href="IMG/logo.png">
     <title>Chess Clock</title>    
-    
+    <script>
+        if (typeof navigator.serviceWorker !== 'undefined') {
+          navigator.serviceWorker.register('sw.js')
+        }
+      </script>
+      
 </head>
 <body>
     <main>
