@@ -1,27 +1,29 @@
-const CACHE_NAME = 'offline-cache-v1';
+const CACHE_NAME = 'offline-cache-v1'; // 현재 캐시 이름
 const urlsToCache = [
-  '/offline.html',    // 오프라인 페이지
+  '/offline.html',
+  '/IMG/offlineImg.png'
 ];
 
+// 설치 이벤트
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('필수 파일들 캐시');
-        return cache.addAll(urlsToCache);  // 필수 파일들을 캐시
-      })
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('Caching files...');
+      return cache.addAll(urlsToCache);
+    })
   );
 });
 
-// 활성화 이벤트 - 불필요한 캐시 삭제
+// 활성화 이벤트 (캐시 무효화 로직 추가)
 self.addEventListener('activate', (event) => {
-  const cacheWhitelist = [CACHE_NAME];
+  const cacheWhitelist = [CACHE_NAME]; // 유지할 캐시 이름
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (!cacheWhitelist.includes(cacheName)) {
-            return caches.delete(cacheName);  // 이전 캐시 삭제
+            console.log(`Deleting old cache: ${cacheName}`);
+            return caches.delete(cacheName); // 이전 캐시 삭제
           }
         })
       );
@@ -29,20 +31,20 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// fetch 이벤트 - 네트워크 요청이 실패하면 오프라인 페이지를 반환
+// fetch 이벤트
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    fetch(event.request)
-      .catch(() => {
-        // 네트워크 요청 실패 시 캐시에서 반환
-        return caches.match(event.request)
-          .then((cachedResponse) => {
-            if (cachedResponse) {
-              return cachedResponse;  // 캐시된 리소스를 반환
-            }
-            // 캐시에도 없으면 오프라인 페이지 반환
-            return caches.match('/offline.html');
-          });
-      })
+    fetch(event.request).catch(() => {
+      // 요청된 리소스를 캐시에서 찾기
+      return caches.match(event.request).then((response) => {
+        if (response) {
+          return response; // 요청과 일치하는 캐시 반환
+        }
+        if (event.request.mode === 'navigate') {
+          // 일치하는 캐시가 없으면 offline.html 반환
+          return caches.match('/offline.html');
+        }
+      });
+    })
   );
 });
