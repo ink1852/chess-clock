@@ -35,10 +35,9 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(event.request).catch(() => {
-      // 요청된 리소스를 캐시에서 찾기
       return caches.match(event.request).then((response) => {
         if (response) {
-          return response; // 요청과 일치하는 캐시 반환
+          return response;
         }
         if (event.request.mode === 'navigate') {
           // 일치하는 캐시가 없으면 offline.html 반환
